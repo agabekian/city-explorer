@@ -20,12 +20,25 @@ axios
 ## Credit and Collaborations
 <!-- Give credit (and a link) to other people or resources that helped you build this application. -->
 
-Name of feature: ________________________________
+Name of feature: query locationiq API
 
-Estimate of time needed to complete: _____
+Estimate of time needed to complete: 75min
 
-Start time: _____
+Start time: 12-15pm
 
-Finish time: _____
+Finish time: 1-30pm
 
-Actual time needed to complete: _____
+
+Name of feature: display map, bootstrap, deploy
+
+Estimate of time needed to complete: 2hr 
+
+Start time: 2pm
+
+Finish time: 3-45
+
+Actual time needed to complete:1hour 45min
+
+
+[diagram](/Capture.PNG/)
+
