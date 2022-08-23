@@ -12,7 +12,9 @@ class App extends React.Component {
       city: "",
       cityData: null,
       error: false,
-      errorMessage: ""
+      errorMessage: "",
+      showWeather:false,
+      weatherData:null
     }
   }
 
@@ -22,6 +24,19 @@ class App extends React.Component {
       city: e.target.value
     })
   }
+handleSubmit = async (e) => {
+  e.preventDefault();
+
+  let url = `${process.env.REACT_APP_SERVER}/weather?name=${this.state.city}`
+  console.log("hey",url);
+  let weatherData = await axios.get(url);
+
+  // console.log(weatherData.data);
+  this.setState({
+    weatherData: weatherData.data,
+    showWeather: true
+  })
+}
 
   getCityData = async (e) => {
     e.preventDefault();
@@ -44,10 +59,20 @@ class App extends React.Component {
   render() {
     return (
       <div className="App">
-        <div style={{ width: "33%", textAlign: "center", margin: "auto", padding: "20px" }}>
+        {this.state.showWeather
+        ?
+        this.state.weatherData.map(d =><p>{d.date},{d.description}</p>)
+        :
+        <p>no data</p>
+  }
+              <div style={{ width: "33%", textAlign: "center", margin: "auto", padding: "20px" }}>
           <Form onSubmit={this.getCityData}>
             <Form.Control size="sm" placeholder="city name" onInput={this.handleInput} />
             <button>Explore</button>
+          </Form>
+          <Form onSubmit={this.handleSubmit}>
+            <Form.Control size="sm" placeholder="city name" onInput={this.handleInput} />
+            <button>GetWeather</button>
           </Form>
         </div>
         {this.state.error
@@ -75,3 +100,55 @@ class App extends React.Component {
 }
 
 export default App;
+
+// constructor(props) {
+//   super(props);
+//   this.state = {
+//     species: '',
+//     petData: {},
+//     showPet: false
+//   }
+// }
+
+// handleInput = (e) => {
+//   this.setState({
+//     species: e.target.value
+//   });
+// }
+
+// handleSubmit = async (e) => {
+//   e.preventDefault();
+
+//   let url = `${process.env.REACT_APP_SERVER}/pet?species=${this.state.species}`
+//   let petData = await axios.get(url);
+
+//   // console.log(petData.data);
+//   this.setState({
+//     petData: petData.data,
+//     showPet: true
+//   })
+// }
+
+
+// render() {
+//   return (
+//     <>
+//       <h1>Find Your Pet</h1>
+//       <form onSubmit={this.handleSubmit}>
+//         <label>
+//           Search
+//           <input type="text" onInput={this.handleInput}/>
+//         </label>
+//         <button type="submit">Display Pet</button>
+//       </form>
+//       {
+//         this.state.showPet &&
+//         <p>{this.state.petData.name} is a {this.state.petData.breed}</p>
+//       }
+//     </>
+//   )
+// }
+// }
+
+// export default App;
+
