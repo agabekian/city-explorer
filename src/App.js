@@ -6,8 +6,6 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Weather from './components/Weather';
 
-
-
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -16,7 +14,8 @@ class App extends React.Component {
       cityData: null,
       error: false,
       errorMessage: "",
-      showWeather: false,
+      bErrorMessage: "",
+      showWeather: "",
       weatherData: null
     }
   }
@@ -24,21 +23,31 @@ class App extends React.Component {
   handleInput = (e) => {
     e.preventDefault();
     this.setState({
-      city: e.target.value
+      city: e.target.value,
+      error: false,
+      bError: false,
     })
   }
+
   handleSubmit = async (e) => {
     e.preventDefault();
+    try {
+      let url = `${process.env.REACT_APP_SERVER}/weather?name=${this.state.city}`
+      console.log("hey", url);
+      let weatherData = await axios.get(url);
 
-    let url = `${process.env.REACT_APP_SERVER}/weather?name=${this.state.city}`
-    console.log("hey", url);
-    let weatherData = await axios.get(url);
-
-    // console.log(weatherData.data);
-    this.setState({
-      weatherData: weatherData.data,
-      showWeather: true
-    })
+      // console.log(weatherData.data);
+      this.setState({
+        weatherData: weatherData.data,
+        showWeather: true
+      })
+    } catch (bError) {
+      this.setState({
+        bError: true,
+        bErrorMessage: bError.message,
+        error: ""
+      })
+    }
   }
 
   getCityData = async (e) => {
@@ -53,17 +62,18 @@ class App extends React.Component {
       // console.log(error);
       this.setState({
         error: true,
+        cityData: null,
         errorMessage: error.message
       })
     }
   }
-
 
   render() {
     const truncTo3 = (num) => {
       num = Math.floor(num * 100) / 100;
       return num.toFixed(3)
     }
+    
     return (
       <div className="App">
         <div style={{ width: "33%", textAlign: "center", margin: "auto", padding: "20px" }}>
@@ -78,8 +88,7 @@ class App extends React.Component {
           ?
           <p>{this.state.errorMessage}</p>
           :
-          <div >
-
+          <div>
             {this.state.cityData && <Card style={{ width: "24rem", margin: "auto" }}>
               <button onClick={this.handleSubmit}>GetWeather</button>
               <Card.Img variant="bottom" src={`https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_LOCATIONIQ_API_KEY}&center=${this.state.cityData.lat},${this.state.cityData.lon}&zoom=12&size=600x600`} />
@@ -89,14 +98,18 @@ class App extends React.Component {
               </Card.Body>
             </Card>
             }
-            {this.state.showWeather
-              && this.state.weatherData.map((d, idx) =>
-                <Weather key={idx}
-                  description={d.description}
-                  date={d.date}
-                />)
-            }
           </div>
+        }
+        {this.state.bError
+          ?
+          <marquee style={{ color: "red" }}><em>server says: {this.state.bErrorMessage}</em></marquee>
+          :
+          this.state.showWeather
+          && this.state.weatherData.map((d, idx) =>
+            <Weather key={idx}
+              description={d.description}
+              date={d.date}
+            />)
         }
       </div>
     );
@@ -105,55 +118,4 @@ class App extends React.Component {
 }
 
 export default App;
-
-// constructor(props) {
-//   super(props);
-//   this.state = {
-//     species: '',
-//     petData: {},
-//     showPet: false
-//   }
-// }
-
-// handleInput = (e) => {
-//   this.setState({
-//     species: e.target.value
-//   });
-// }
-
-// handleSubmit = async (e) => {
-//   e.preventDefault();
-
-//   let url = `${process.env.REACT_APP_SERVER}/pet?species=${this.state.species}`
-//   let petData = await axios.get(url);
-
-//   // console.log(petData.data);
-//   this.setState({
-//     petData: petData.data,
-//     showPet: true
-//   })
-// }
-
-
-// render() {
-//   return (
-//     <>
-//       <h1>Find Your Pet</h1>
-//       <form onSubmit={this.handleSubmit}>
-//         <label>
-//           Search
-//           <input type="text" onInput={this.handleInput}/>
-//         </label>
-//         <button type="submit">Display Pet</button>
-//       </form>
-//       {
-//         this.state.showPet &&
-//         <p>{this.state.petData.name} is a {this.state.petData.breed}</p>
-//       }
-//     </>
-//   )
-// }
-// }
-
-// export default App;
 
