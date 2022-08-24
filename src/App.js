@@ -73,7 +73,7 @@ class App extends React.Component {
       num = Math.floor(num * 100) / 100;
       return num.toFixed(3)
     }
-    
+
     return (
       <div className="App">
         <div style={{ width: "33%", textAlign: "center", margin: "auto", padding: "20px" }}>
@@ -102,7 +102,7 @@ class App extends React.Component {
         }
         {this.state.bError
           ?
-          <marquee style={{ color: "red" }}><em>server says: {this.state.bErrorMessage}</em></marquee>
+          <p style={{ color: "red" }}><em>server says: {this.state.bErrorMessage}</em></p>
           :
           this.state.showWeather
           && this.state.weatherData.map((d, idx) =>
