@@ -5,6 +5,7 @@ import Card from 'react-bootstrap/Card';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Weather from './components/Weather';
+import { hasUnreliableEmptyValue } from '@testing-library/user-event/dist/utils';
 
 class App extends React.Component {
   constructor(props) {
@@ -16,7 +17,8 @@ class App extends React.Component {
       errorMessage: "",
       bErrorMessage: "",
       showWeather: "",
-      weatherData: null
+      weatherData: null,
+      searchQuery:""
     }
   }
 
@@ -68,6 +70,21 @@ class App extends React.Component {
     }
   }
 
+  handleRequestWeather = async (event) => {
+    event.preventDefault();
+    try {
+      const server = process.env.REACT_APP_SERVER;
+			const url = `${server}/weather?lat=${this.state.cityData.lat}&lon=${this.state.cityData.lon}`;
+			const response = await axios.get(url);
+			// const response = await axios.get(url, { params: { searchQuery: this.state.cityData.lat+","+this.state.cityData.lon }});
+      console.log("weather",response);
+			this.setState({ weatherData: response.data });
+    } catch (err) {
+        console.log(err);
+    }
+  }
+
+
   render() {
     const truncTo3 = (num) => {
       num = Math.floor(num * 100) / 100;
@@ -90,7 +107,7 @@ class App extends React.Component {
           :
           <div>
             {this.state.cityData && <Card style={{ width: "24rem", margin: "auto" }}>
-              <button onClick={this.handleSubmit}>GetWeather</button>
+              <button onClick={this.handleRequestWeather}>GetWeather</button>
               <Card.Img variant="bottom" src={`https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_LOCATIONIQ_API_KEY}&center=${this.state.cityData.lat},${this.state.cityData.lon}&zoom=12&size=600x600`} />
               <Card.Body>
                 <Card.Title>{this.state.cityData.display_name}</Card.Title>
