@@ -1,8 +1,11 @@
-// import './App.css';
+import './App.css';
 import React from "react";
 import axios from "axios";
 import Card from 'react-bootstrap/Card';
 import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
+import Weather from './components/Weather';
+
 
 
 class App extends React.Component {
@@ -13,8 +16,8 @@ class App extends React.Component {
       cityData: null,
       error: false,
       errorMessage: "",
-      showWeather:false,
-      weatherData:null
+      showWeather: false,
+      weatherData: null
     }
   }
 
@@ -24,19 +27,19 @@ class App extends React.Component {
       city: e.target.value
     })
   }
-handleSubmit = async (e) => {
-  e.preventDefault();
+  handleSubmit = async (e) => {
+    e.preventDefault();
 
-  let url = `${process.env.REACT_APP_SERVER}/weather?name=${this.state.city}`
-  console.log("hey",url);
-  let weatherData = await axios.get(url);
+    let url = `${process.env.REACT_APP_SERVER}/weather?name=${this.state.city}`
+    console.log("hey", url);
+    let weatherData = await axios.get(url);
 
-  // console.log(weatherData.data);
-  this.setState({
-    weatherData: weatherData.data,
-    showWeather: true
-  })
-}
+    // console.log(weatherData.data);
+    this.setState({
+      weatherData: weatherData.data,
+      showWeather: true
+    })
+  }
 
   getCityData = async (e) => {
     e.preventDefault();
@@ -59,29 +62,21 @@ handleSubmit = async (e) => {
   render() {
     return (
       <div className="App">
-        {this.state.showWeather
-        ?
-        this.state.weatherData.map(d =><p>{d.date},{d.description}</p>)
-        :
-        <p>no data</p>
-  }
-              <div style={{ width: "33%", textAlign: "center", margin: "auto", padding: "20px" }}>
-          <Form onSubmit={this.getCityData}>
+        <div style={{ width: "33%", textAlign: "center", margin: "auto", padding: "20px" }}>
+          <Form >
             <Form.Control size="sm" placeholder="city name" onInput={this.handleInput} />
-            <button>Explore</button>
+            <Button onClick={this.getCityData}>Explore</Button>
           </Form>
-          <Form onSubmit={this.handleSubmit}>
-            <Form.Control size="sm" placeholder="city name" onInput={this.handleInput} />
-            <button>GetWeather</button>
-          </Form>
+
         </div>
         {this.state.error
           ?
           <p>{this.state.errorMessage}</p>
           :
           <div >
-            {/* <img src="src={`https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_LOCATIONIQ_API_KEY}&center=${this.state.cityData.lat},${this.state.cityData.lon}&zoom=10&size=300x300`} />" */}
+
             {this.state.cityData && <Card style={{ width: "24rem", margin: "auto" }}>
+              <button onClick={this.handleSubmit}>GetWeather</button>
               <Card.Img variant="bottom" src={`https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_LOCATIONIQ_API_KEY}&center=${this.state.cityData.lat},${this.state.cityData.lon}&zoom=12&size=600x600`} />
               <Card.Body>
                 <Card.Title>{this.state.cityData.display_name}</Card.Title>
@@ -90,6 +85,13 @@ handleSubmit = async (e) => {
               </Card.Body>
             </Card>
             }
+            {this.state.showWeather
+          && this.state.weatherData.map((d,idx) => 
+            <Weather key={idx}
+            description={d.description}
+            date={d.date}
+          />)
+        }
 
           </div>
         }
