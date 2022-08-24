@@ -44,7 +44,7 @@ class App extends React.Component {
   getCityData = async (e) => {
     e.preventDefault();
     let url = `https://us1.locationiq.com/v1/search?key=${process.env.REACT_APP_LOCATIONIQ_API_KEY}&q=${this.state.city}&format=json`
-    // console.log(url);
+    console.log(url);
     try {
       let cityData = await axios.get(url);
       // console.log(cityData.data[0]);
@@ -60,12 +60,17 @@ class App extends React.Component {
 
 
   render() {
+    const truncTo3 = (num) => {
+      num = Math.floor(num * 100) / 100;
+      return num.toFixed(3)
+    }
     return (
       <div className="App">
         <div style={{ width: "33%", textAlign: "center", margin: "auto", padding: "20px" }}>
           <Form >
             <Form.Control size="sm" placeholder="city name" onInput={this.handleInput} />
-            <Button onClick={this.getCityData}>Explore</Button>
+            <Button style={{ margin: "10px" }} type="submit" onClick={this.getCityData}>Explore</Button>
+            {/* type "submit" enables enter key */}
           </Form>
 
         </div>
@@ -80,19 +85,17 @@ class App extends React.Component {
               <Card.Img variant="bottom" src={`https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_LOCATIONIQ_API_KEY}&center=${this.state.cityData.lat},${this.state.cityData.lon}&zoom=12&size=600x600`} />
               <Card.Body>
                 <Card.Title>{this.state.cityData.display_name}</Card.Title>
-                <Card.Text>Longitude: {this.state.cityData.lon}</Card.Text>
-                <Card.Text>Latitude: {this.state.cityData.lat}</Card.Text>
+                <Card.Text>{truncTo3(this.state.cityData.lat)} {truncTo3(this.state.cityData.lon)}</Card.Text>
               </Card.Body>
             </Card>
             }
             {this.state.showWeather
-          && this.state.weatherData.map((d,idx) => 
-            <Weather key={idx}
-            description={d.description}
-            date={d.date}
-          />)
-        }
-
+              && this.state.weatherData.map((d, idx) =>
+                <Weather key={idx}
+                  description={d.description}
+                  date={d.date}
+                />)
+            }
           </div>
         }
       </div>
