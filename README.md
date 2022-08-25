@@ -1,7 +1,7 @@
 # Project Name
 
 **Author**: Armen Agabekian
-**Version**: 1.0.0 (increment the patch/fix version number if you make more commits past your first submission)
+**Version**: 1.0.1 (increment the patch/fix version number if you make more commits past your first submission)
 
 ## Overview
 The app will will use multiple API to request and dispaly data on a chosen city
@@ -38,6 +38,17 @@ Start time: 2pm
 Finish time: 3-45
 
 Actual time needed to complete:1hour 45min
+
+
+Name of feature: integrate backend
+
+Estimate of time needed to complete: 3hr 
+
+Start time: 12pm
+
+Finish time: 6-45
+
+Actual time needed to complete: 6hours
 
 ![scheme](https://user-images.githubusercontent.com/64112736/186766256-8ef47087-9edf-4f96-aa14-53925434ba5c.jpg)
 
