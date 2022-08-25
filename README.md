@@ -39,6 +39,6 @@ Finish time: 3-45
 
 Actual time needed to complete:1hour 45min
 
+![scheme](https://user-images.githubusercontent.com/64112736/186766256-8ef47087-9edf-4f96-aa14-53925434ba5c.jpg)
 
-![image](https://user-images.githubusercontent.com/64112736/186765880-dddb50dc-94ef-4d86-9456-4f9138b31105.png)
 
