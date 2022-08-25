@@ -12,6 +12,7 @@ class Weather extends React.Component {
           <Card.Body>
             <Card.Title>{this.props.date}</Card.Title>
             <Card.Text>{this.props.description}</Card.Text>
+            <Card.Text>{this.props.high_temp}</Card.Text>
           </Card.Body>
         </Card>
       </div>
