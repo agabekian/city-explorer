@@ -1,10 +1,7 @@
 import React from "react";
 import {Card} from 'react-bootstrap';
 
-
-
 class Film extends React.Component {
-
   render() {
     return (
   
