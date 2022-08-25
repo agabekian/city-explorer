@@ -5,6 +5,7 @@ import Card from 'react-bootstrap/Card';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Weather from './components/Weather';
+import Film from './components/Film';
 
 class App extends React.Component {
   constructor(props) {
@@ -116,10 +117,11 @@ class App extends React.Component {
             <Button style={{ margin: "10px" }} type="submit" onClick={this.getCityData}>Explore</Button>
             {/* type "submit" enables enter key */}
           </Form>
-
         </div>
         <div class="overflow-auto" >
-        {this.state.movies.length>0 && this.state.movies.map(m=><p>{m.title}</p>)}
+          {this.state.movies.length > 0 && this.state.movies.map(m => 
+            <Film title={m.title} poster_path={m.poster_path}/>
+            )}
         </div>
 
 
@@ -130,12 +132,12 @@ class App extends React.Component {
           <div>
             {this.state.cityData && <Card style={{ width: "24rem", margin: "auto" }}>
               <button onClick={this.handleRequestWeather}>GetWeather</button>
-              <button onClick={this.handleGetMovies}>The City in Films</button>
               <Card.Img variant="bottom" src={`https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_LOCATIONIQ_API_KEY}&center=${this.state.cityData.lat},${this.state.cityData.lon}&zoom=12&size=600x600`} />
               <Card.Body>
                 <Card.Title>{this.state.cityData.display_name}</Card.Title>
                 <Card.Text>{truncTo3(this.state.cityData.lat)} {truncTo3(this.state.cityData.lon)}</Card.Text>
               </Card.Body>
+              <button onClick={this.handleGetMovies}>The City in Films</button>
             </Card>
             }
           </div>
