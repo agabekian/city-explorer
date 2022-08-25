@@ -118,7 +118,7 @@ class App extends React.Component {
             {/* type "submit" enables enter key */}
           </Form>
         </div>
-        <div class="overflow-auto" >
+        <div className="overflow-auto" >
           {this.state.movies.length > 0 && this.state.movies.map(m => 
             <Film title={m.title} poster_path={m.poster_path}/>
             )}
