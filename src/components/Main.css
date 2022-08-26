@@ -1,0 +1,9 @@
+.left{
+    background-color: beige;
+}
+.center{
+}
+
+.appear{
+    display:flex;
+}
