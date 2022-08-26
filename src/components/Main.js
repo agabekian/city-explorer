@@ -87,7 +87,6 @@ class Main extends React.Component {
             console.log(err);
         }
     }
-
     render() {
         return (
             <Container fluid>

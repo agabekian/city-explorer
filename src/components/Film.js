@@ -7,9 +7,9 @@ class Film extends React.Component {
         <Card >
           <Card.Img variant="bottom" />
           <Card.Body>
-            <Card.Title>{this.props.title}</Card.Title>
+            <Card.Title><a style={{textDecoration:"none"}} href={`//image.tmdb.org/t/p/original/${this.props.poster_path}`}>{this.props.title}</a></Card.Title>
             {/* {/* <Card.Text>{this.props.description}</Card.Text> */}
-            {/* {let url= `https://image.tmdb.org/t/p/original/+${this.props.poster_path}`} */}
+            
           </Card.Body>
         </Card>
   
