@@ -48,7 +48,11 @@ Start time: 12pm
 
 Finish time: 6-45
 
-Actual time needed to complete: 6hours
+Actual time needed to complete: 6hours!
+
+[cap1](ht![scheme0](https://user-images.githubusercontent.com/64112736/186949029-e981b712-0feb-41fa-a705-b8f24bfefa89.jpg)
+tps://user-images.githubusercontent.com/64112736/186948780-79355e7a-8a9d-4cf5-add1-96a75ab7c677.png)
+
 
 ![scheme](https://user-images.githubusercontent.com/64112736/186766256-8ef47087-9edf-4f96-aa14-53925434ba5c.jpg)
 
