@@ -50,7 +50,10 @@ Finish time: 6-45
 
 Actual time needed to complete: 6hours!
 
-[cap1](ht![scheme0](https://user-images.githubusercontent.com/64112736/186949029-e981b712-0feb-41fa-a705-b8f24bfefa89.jpg)
+![cap1](https://user-images.githubusercontent.com/64112736/186949258-851e4ad1-96e4-48ca-b8f5-1666ebd72356.png)
+
+
+[cap1](https://user-images.githubusercontent.com/64112736/186949029-e981b712-0feb-41fa-a705-b8f24bfefa89.jpg)
 tps://user-images.githubusercontent.com/64112736/186948780-79355e7a-8a9d-4cf5-add1-96a75ab7c677.png)
 
 
