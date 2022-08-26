@@ -1,9 +1,3 @@
-.left{
-    background-color: beige;
-}
-.center{
-}
-
-.appear{
-    display:flex;
+.left {
+    background-color: rgb(94, 91, 91);
 }

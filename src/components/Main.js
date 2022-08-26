@@ -3,12 +3,14 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+import Col from 'react-bootstrap/Col';
 import Weather from './Weather';
 import Film from './Film';
 import Location from './Location';
 import Nav from './Nav';
 import axios from "axios";
 import './Main.css'
+import { CloudRain, Sun, Cloud } from 'react-bootstrap-icons';
 
 class Main extends React.Component {
     constructor(props) {
@@ -26,6 +28,16 @@ class Main extends React.Component {
             movies: [],
             showMovies: false
         }
+    }
+
+    chose = (param) => {
+        if (param.includes("rain")) {
+            return <CloudRain />
+        }
+        else if (param.includes("cloud")) {
+            return <Cloud />
+        }
+        else return <Sun />
     }
 
     handleInput = (e) => {
@@ -87,42 +99,34 @@ class Main extends React.Component {
     }
     render() {
         return (
-            <Container fluid>
-                {this.state.cityData &&
-                    <Nav
-                        handleRequestWeather={this.handleRequestWeather}
-                        handleGetMovies={this.handleGetMovies}
-                    />
-                }
-                <div style={{ width: "33%", textAlign: "center", margin: "auto", padding: "20px" }}>
+            <Container fluid className="left" style={{paddingTop: "20px" }}>
+                <div style={{ width: "33%", textAlign: "center", margin: "auto" }}>
                     <Form >
-                        <Form.Control size="sm" placeholder="city name" onInput={this.handleInput} />
-                        <Button style={{ margin: "10px" }} type="submit" onClick={this.getCityData}>Explore</Button>
+                        <Form.Control  size="sm" placeholder="city name" onInput={this.handleInput} />
+                        <Button variant="outline-light" style={{ margin: "10px" }} type="submit" onClick={this.getCityData}>Explore</Button>
                         {/* type "submit" enables enter key */}
                     </Form>
+                    {this.state.cityData &&
+                        <Nav
+                            handleRequestWeather={this.handleRequestWeather}
+                            handleGetMovies={this.handleGetMovies}
+                        />
+                    }
                 </div>
-                <div className="left">
-                    {this.state.error
-                        ?
-                        <p>{this.state.errorMessage}</p>
-                        :
-   
+                <Row>
+                    <Col >
+                        {this.state.error
+                            ?
+                            <p>{this.state.errorMessage}</p>
+                            : this.state.cityData &&
                             <Location
                                 cityData={this.state.cityData}
                                 getCity={this.getCityData}
-                                show={this.state.show}
-                                truncTo3={this.truncTo3}
                             />
- 
-                    }
-                    {this.state.movies.length > 0 && this.state.movies.map((m, idx) =>
-                        <div className="center" key={idx} >
-                            <Film title={m.title} poster_path={m.poster_path} />
-                        </div>
-                    )}
-                </div>
-                <Row>
-                    {
+                        }
+                    </Col>
+
+                    <Col >                    {
                         this.state.bError
                             ?
                             <p style={{ color: "red" }}><em>server says: {this.state.bErrorMessage}</em></p>
@@ -133,12 +137,21 @@ class Main extends React.Component {
                                     date={d.date}
                                     description={d.description}
                                     high_temp={d.high_temp}
+                                    chose={this.chose}
                                 />)
                     }
+                    </Col>
+                    <Col>
+                        {this.state.movies.length > 0 && this.state.movies.map((m, idx) =>
+                            <div className="center" key={idx} >
+                                <Film title={m.title} poster_path={m.poster_path} />
+                            </div>
+                        )}
+                    </Col>
+
                 </Row>
             </Container >
         );
-
     }
 }
 
