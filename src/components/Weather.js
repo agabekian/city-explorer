@@ -1,6 +1,5 @@
 import React from "react";
 import Card from 'react-bootstrap/Card';
-import {CloudRain,Sun,Cloud} from 'react-bootstrap-icons';
 
 
 class Weather extends React.Component {
