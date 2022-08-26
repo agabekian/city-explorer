@@ -21,12 +21,13 @@ class Main extends React.Component {
             cityData: null,
             error: false,
             errorMessage: "",
+            bError: false,
             bErrorMessage: "",
-            showWeather: "",
-            weatherData: null,
-            searchQuery: "",
+            // showWeather: "", //prolly not needed
+            // showMovies: false
+            weatherData: [],
             movies: [],
-            showMovies: false
+            searchQuery: "",
         }
     }
 
@@ -59,10 +60,8 @@ class Main extends React.Component {
             this.setState({ cityData: cityData.data[0], show: true })
 
         } catch (error) {
-            // console.log(error);
             this.setState({
                 error: true,
-                // cityData: null,
                 errorMessage: error.message
             })
         }
@@ -78,6 +77,10 @@ class Main extends React.Component {
             console.log("weather", response);
             this.setState({ showWeather: true, weatherData: response.data });
         } catch (err) {
+            this.setState({
+                bError: true,
+                bErrorMessage: err.message
+            })
             console.log(err);
         }
     }
@@ -94,15 +97,19 @@ class Main extends React.Component {
             console.log("movies", response);
             this.setState({ showMovies: true, movies: response.data });
         } catch (err) {
+            this.setState({
+                bError: true,
+                bErrorMessage: err.message
+            })
             console.log(err);
         }
     }
     render() {
         return (
-            <Container fluid className="left" style={{paddingTop: "20px" }}>
+            <Container fluid className="left" style={{ paddingTop: "20px" }}>
                 <div style={{ width: "33%", textAlign: "center", margin: "auto" }}>
                     <Form >
-                        <Form.Control  size="sm" placeholder="city name" onInput={this.handleInput} />
+                        <Form.Control size="sm" placeholder="city name" onInput={this.handleInput} />
                         <Button variant="outline-light" style={{ margin: "10px" }} type="submit" onClick={this.getCityData}>Explore</Button>
                         {/* type "submit" enables enter key */}
                     </Form>
@@ -115,8 +122,7 @@ class Main extends React.Component {
                 </div>
                 <Row>
                     <Col >
-                        {this.state.error
-                            ?
+                        {this.state.error ?
                             <p>{this.state.errorMessage}</p>
                             : this.state.cityData &&
                             <Location
@@ -126,29 +132,21 @@ class Main extends React.Component {
                         }
                     </Col>
 
-                    <Col >                    {
-                        this.state.bError
-                            ?
-                            <p style={{ color: "red" }}><em>server says: {this.state.bErrorMessage}</em></p>
-                            :
-                            this.state.showWeather
-                            && this.state.weatherData.map((d, idx) =>
-                                <Weather key={idx}
-                                    date={d.date}
-                                    description={d.description}
-                                    high_temp={d.high_temp}
+                    <Col >
+                        {
+                            this.state.bError
+                                ?
+                                <p style={{ color: "red" }}><em>server says: {this.state.bErrorMessage}</em></p>
+                                :
+                                <Weather
+                                    weatherData={this.state.weatherData}
                                     chose={this.chose}
-                                />)
-                    }
+                                />
+                        }
                     </Col>
                     <Col>
-                        {this.state.movies.length > 0 && this.state.movies.map((m, idx) =>
-                            <div className="center" key={idx} >
-                                <Film title={m.title} poster_path={m.poster_path} />
-                            </div>
-                        )}
+                        <Film movies={this.state.movies} />
                     </Col>
-
                 </Row>
             </Container >
         );

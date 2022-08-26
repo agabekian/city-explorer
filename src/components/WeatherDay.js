@@ -4,20 +4,20 @@ import Card from 'react-bootstrap/Card';
 
 class Weather extends React.Component {
 
-  
+
   render() {
     return (
-      <div>
+      this.props.weatherData.length>0 && this.props.weatherData.map((d, idx) =>
         <Card border="light" bg={"secondary"} text={"light"}>
           <Card.Img />
           <Card.Body>
-           {this.props.chose(this.props.description)}
-            <Card.Title text={"dark"}>{this.props.date}</Card.Title>
-            <Card.Text>{this.props.description}</Card.Text>
-            <Card.Text>{this.props.high_temp}</Card.Text>
+            {this.props.chose(d.description)}
+            <Card.Title text={"dark"}>{d.date}</Card.Title>
+            <Card.Text>{d.description}</Card.Text>
+            <Card.Text>{d.high_temp}</Card.Text>
           </Card.Body>
         </Card>
-      </div>
+      )
     )
   }
 }
