@@ -1,4 +1,5 @@
 import React from "react";
+import './Main.css'
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Form from 'react-bootstrap/Form';
@@ -9,7 +10,6 @@ import Film from './Movie';
 import Location from './Location';
 import Nav from './Nav';
 import axios from "axios";
-import './Main.css'
 import { CloudRain, Sun, Cloud } from 'react-bootstrap-icons';
 
 class Main extends React.Component {
