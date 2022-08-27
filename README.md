@@ -1,10 +1,10 @@
 # Project Name
 
 **Author**: Armen Agabekian
-**Version**: 1.0.1 (increment the patch/fix version number if you make more commits past your first submission)
+**Version**: 1.1.0 (increment the patch/fix version number if you make more commits past your first submission)
 
 ## Overview
-The app will will use multiple API to request and dispaly data on a chosen city
+The app will will use multiple API to request and dispaly data on a chosen city, its 5-day weather forecast and movies with citys legacy.
 
 ## Getting Started
 npm install
@@ -49,6 +49,16 @@ Start time: 12pm
 Finish time: 6-45
 
 Actual time needed to complete: 6hours!
+
+Name of feature: Cache
+
+Estimate of time needed to complete: 2hr 
+
+Start time: 1pm
+
+Finish time: 5-45
+
+Actual time needed to complete: 4hours!
 
 ![cap1](https://user-images.githubusercontent.com/64112736/186949258-851e4ad1-96e4-48ca-b8f5-1666ebd72356.png)
 
